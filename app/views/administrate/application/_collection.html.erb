@@ -22,6 +22,7 @@ to display a collection of resources in an HTML table.
   <thead>
     <tr>
       <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
+        <% if !request.controller_class.to_s.include?(attr_name.to_s.titleize) %>
         <th class="cell-label
         cell-label--<%= attr_type.html_class %>
         cell-label--<%= collection_presenter.ordered_html_class(attr_name) %>
@@ -46,6 +47,7 @@ to display a collection of resources in an HTML table.
             <% end %>
           <% end %>
         </th>
+        <% end %>
       <% end %>
       <th colspan="2" scope="col"></th>
     </tr>
@@ -59,9 +61,11 @@ to display a collection of resources in an HTML table.
           data-url="<%= polymorphic_path([namespace, resource]) -%>"
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
+          <% if !request.controller_class.to_s.include?(attribute.data.class.to_s) %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
             <%= render_field attribute %>
           </td>
+          <% end %>
         <% end %>
 
         <td><%= link_to(
