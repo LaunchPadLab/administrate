@@ -1,10 +1,14 @@
-module Administrate
+wmodule Administrate
   class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
 
     def index
       search_term = params[:search].to_s.strip
       resources = Administrate::Search.new(resource_resolver, search_term).run
+      if params[:query]
+        query = params[:query].first.symbolize_keys
+        resources = resources.where(query)
+      end
       resources = order.apply(resources)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)

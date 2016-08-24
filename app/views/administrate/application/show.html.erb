@@ -38,7 +38,12 @@ as well as a link to its edit page.
     ) %>
     </dt>
 
-    <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-        ><%= render_field attribute %></dd>
+    <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+      <%= render_field attribute %>
+      <% if attribute.html_class == 'has-many' && attribute.more_than_limit? %>
+        <% resource = page.resource %>
+        <%= link_to 'Show All', "/admin/#{attribute.name}?query[][#{page.resource.class.to_s.downcase}_id]=#{page.resource.id}" %>
+      <% end %>
+    </dd>
   <% end %>
 </dl>
