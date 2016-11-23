@@ -4,9 +4,10 @@ gemspec
 
 gem "administrate-field-image",
   git: "https://github.com/thoughtbot/administrate-field-image.git",
-  branch: "rails-5"
+  branch: "jq-rails-5"
 gem "bourbon", "~> 4.2"
 gem "delayed_job_active_record"
+gem "faker"
 gem "high_voltage"
 gem "markdown-rails"
 gem "pg"
@@ -24,7 +25,6 @@ group :development, :test do
   gem "byebug"
   gem "dotenv-rails"
   gem "factory_girl_rails"
-  gem "faker"
   gem "i18n-tasks"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.5.0"
